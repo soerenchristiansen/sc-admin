@@ -10,7 +10,7 @@ Aurelia admin building blocks
 #### Add migrations
 e.g. `dotnet ef migrations add InitialCreate`
 
-### Remove the last migration
+#### Remove the last migration
 e.g. `dotnet ef migrations remove`
 
 #### To save git credentials

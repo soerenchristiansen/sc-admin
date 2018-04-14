@@ -1,6 +1,20 @@
 <template bindable="router">
-    <div class="main-nav">
-        <div class="navbar navbar-inverse">
+    <nav class="navbar-expand-lg main-nav">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">SC ADMIN</a>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarResponsive">
+            <ul class="navbar-sidenav">
+                <li repeat.for="row of router.navigation" class="nav-item ${row.isActive ? 'active': ''}">
+                    <a class="nav-link" href.bind="row.href">${row.title}</a>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="navbar navbar-inverse">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -20,6 +34,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </div>
+        </div> -->
+    </nav>
 </template>

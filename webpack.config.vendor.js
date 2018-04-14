@@ -35,7 +35,8 @@ module.exports = ({ prod } = {}) => {
                 'bootstrap/dist/js/bootstrap.js',
                 'bootstrap/dist/css/bootstrap.css',
                 'popper.js/dist/umd/popper.js',
-                'jquery/dist/jquery.js'
+                'jquery/dist/jquery.js',
+                'font-awesome/css/font-awesome.css'
             ],
         },
         output: {

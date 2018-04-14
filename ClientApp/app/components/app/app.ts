@@ -6,13 +6,13 @@ export class App {
     router: Router;
 
     configureRouter(config: RouterConfiguration, router: Router) {
-        config.title = 'sc_admin';
+        config.title = 'SC Admin';
         config.options.pushState = true;
         config.addAuthorizeStep(AuthorizeStep);
         config.map([
             {
                 route: '',
-                moduleId: PLATFORM.moduleName('../layout/layout'),
+                moduleId: PLATFORM.moduleName('../layout/layout')
             },
             {
                 route: ['', 'home'],

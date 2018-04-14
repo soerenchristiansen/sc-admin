@@ -40,7 +40,7 @@ export class AuthenticationService {
 					this.storeAccessToken(result);
 					resolve(result);
 					this.publishSigninStatus(true);
-					this.router.navigate("admin");
+					this.router.navigate("/");
 				})
 				.catch(error => {
 					console.error('Error performing password flow', error);
