@@ -1,23 +1,25 @@
 import { AuthenticationService } from './../../services/authentication.service';
-import { inject } from 'aurelia-framework';
+import { inject, Aurelia, PLATFORM } from 'aurelia-framework';
 
-@inject(AuthenticationService)
+@inject(AuthenticationService, Aurelia)
 export class Login {
     userName: string = "";
     password: string = "";
     error: string = "";
     hasError: boolean = false;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private aurelia: Aurelia) {
 
     }
 
-    login() {
-        this.authenticationService.login(this.userName, this.password)
-            .then(result => this.hasError = false)
-            .catch(error => {
-                this.hasError = true;
-                this.error = error.error_description;
-            })
+    async login() {
+        // this.authenticationService.login(this.userName, this.password)
+        //     .then(result => this.hasError = false)
+        //     .catch(error => {
+        //         this.hasError = true;
+        //         this.error = error.error_description;
+        //     });
+
+        await this.aurelia.setRoot(PLATFORM.moduleName('app/components/app/app'));
     }
 }

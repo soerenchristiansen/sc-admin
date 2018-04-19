@@ -1,0 +1,53 @@
+<template>
+    <ux-dialog>
+        <ux-dialog-body class="dialog-body">
+            <div class="name-info">
+                <div class="form-group">
+                    <label>First name</label>
+                    <input class="form-control" attach-focus="true" value.bind="user.firstName" />
+                </div>
+                <div class="form-group">
+                    <label>Last name</label>
+                    <input class="form-control" value.bind="user.lastName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input class="form-control" type="text" value.bind="user.userName" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="email" value.bind="user.email" />
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <select class="form-control" value.bind="user.role" change.delegate="changeRole(user.role)">
+                    <option repeat.for="role of roles" model.bind="role.roleName">
+                        ${role.roleName}
+                    </option>
+                </select>
+            </div>
+            <div class="name-info">
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" type="password" value.bind="user.password" />
+                </div>
+                <div class="form-group">
+                    <label>Confirm password</label>
+                    <input class="form-control" type="password" value.bind="user.confirmPassword" />
+                </div>
+            </div>
+        </ux-dialog-body>
+
+        <ux-dialog-footer>
+            <button class="btn btn-danger" click.trigger="dialogController.cancel()">Cancel</button>
+            <button class="btn btn-success" click.trigger="editUser()">Save</button>
+        </ux-dialog-footer>
+
+        <section class="alert alert-danger" if.bind="errors.length > 0">
+            <div repeat.for="error of errors">
+                <small>${error.description}</small>
+            </div>
+        </section>
+    </ux-dialog>
+</template>

@@ -1,0 +1,24 @@
+.dialog-body {
+    width: 300px;
+}
+
+@media (min-width: 768px) {
+    .dialog-body {
+        width: 600px;
+    }
+}
+
+@media (min-width: 900px) {
+    .dialog-body {
+        width: 800px;
+    }
+}
+
+.name-info {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+        flex: 0 0 49%;
+    }
+}

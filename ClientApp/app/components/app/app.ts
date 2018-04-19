@@ -11,10 +11,6 @@ export class App {
         config.addAuthorizeStep(AuthorizeStep);
         config.map([
             {
-                route: '',
-                moduleId: PLATFORM.moduleName('../layout/layout')
-            },
-            {
                 route: ['', 'home'],
                 name: 'home',
                 settings: { icon: 'home' },
@@ -28,16 +24,16 @@ export class App {
                 settings: { icon: 'th-list' },
                 moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
                 nav: true,
-                title: 'Fetch data'
+                title: 'Fetch data',
+                auth: true
             },
             {
-                route: 'login',
-                name: 'login',
-                layoutView: 'app/components/login/login.html',
-                layoutViewModel: PLATFORM.moduleName('app/components/login/login'),
-                moduleId: PLATFORM.moduleName('app/components/login/login'),
-                title: 'Login'
-            },
+                route: 'profiles',
+                name: 'profiles',
+                moduleId: PLATFORM.moduleName('../profiles/profiles'),
+                nav: true,
+                title: 'Profiles'
+            }
         ]);
 
         this.router = router;
