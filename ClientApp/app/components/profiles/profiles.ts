@@ -1,18 +1,28 @@
+import { User } from './../../models/user';
+import { ProfilesService } from './../../services/profiles.service';
 import { EditUser } from './edit-user/edit-user';
 import { inject } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
 
-@inject(DialogService)
+@inject(DialogService, ProfilesService)
 export class Profiles {
-    constructor(private dialogService: DialogService) {
+    users: User[] = [];
 
+    constructor(private dialogService: DialogService, private profilesService: ProfilesService) {
     }
 
+    activate() {
+        this.profilesService.getAllUsers()
+                    .then(result => {
+                        this.users = result;
+                    });
+    }
 
-    openUserModal() {
-        this.dialogService.open({ viewModel: EditUser, lock: false}).whenClosed(response => {
+    openUserModal(user?: User) {
+        this.dialogService.open({ viewModel: EditUser, model: user, lock: false}).whenClosed(response => {
             if (!response.wasCancelled) {
-                console.log("hello");
+                this.profilesService.getAllUsers()
+                    .then(result => this.users = result);
             }
         });
     }

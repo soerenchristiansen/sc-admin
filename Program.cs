@@ -10,13 +10,13 @@ namespace sc_admin
     {
         public static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                //.WriteTo.Logentries("")
-                .WriteTo.File("c:\\projects\\sc-admin\\bin\\logs\\log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+            // Log.Logger = new LoggerConfiguration()
+            //     .MinimumLevel.Information()
+            //     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            //     .Enrich.FromLogContext()
+            //     //.WriteTo.Logentries("")
+            //     // .WriteTo.File("c:\\projects\\sc-admin\\bin\\logs\\log.txt", rollingInterval: RollingInterval.Day)
+            //     .CreateLogger();
 
             try
             {
@@ -36,7 +36,7 @@ namespace sc_admin
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseSerilog()
+                // .UseSerilog()
                 .Build();
     }
 }

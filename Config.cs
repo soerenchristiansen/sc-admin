@@ -37,7 +37,7 @@ namespace sc_admin
                     AllowAccessTokensViaBrowser = true,
                     RequireClientSecret = false, // This client does not need a secret to request tokens from the token endpoint.
 
-                    AccessTokenLifetime = 900, // Lifetime of access token in seconds.
+                    AccessTokenLifetime = 3600, // Lifetime of access token in seconds.
 
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId, // For UserInfo endpoint.

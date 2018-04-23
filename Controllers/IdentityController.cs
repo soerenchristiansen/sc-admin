@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityModel;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +14,7 @@ using Serilog;
 namespace sc_admin.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme, Policy = "Administration")]
     public class IdentityController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -24,6 +29,7 @@ namespace sc_admin.Controllers
         [HttpGet("[action]")]
         public async Task<IList<ApplicationUser>> GetAllUsers()
         {
+            var roles = await _roleManager.Roles.ToListAsync();
             return await _userManager.Users.ToListAsync();
         }
 
@@ -39,7 +45,9 @@ namespace sc_admin.Controllers
             var user = new ApplicationUser
             {
                 UserName = model.UserName,
-                Email = model.Email
+                Email = model.Email,
+                FamilyName = model.FamilyName,
+                GivenName = model.GivenName
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -48,6 +56,7 @@ namespace sc_admin.Controllers
             if (await _roleManager.RoleExistsAsync(model.Role))
             {
                 await AddToRole(user.UserName, model.Role);
+                await AddClaims(user.UserName);
                 return result;
             }
 
@@ -61,6 +70,28 @@ namespace sc_admin.Controllers
                 Log.Error(string.Join(", ", roleResult.Errors.Select(x => x.Description)));
             }
 
+            await AddClaims(user.UserName);
+            
+            return result;
+        }
+
+        [HttpPut("[action]")]
+        public async Task<IdentityResult> UpdateUser([FromBody]UserModel model) 
+        {
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null) return null;
+
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.FamilyName = model.FamilyName;
+            user.GivenName = model.GivenName;
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                await AddToRole(user.UserName, model.Role);
+                await AddClaims(user.UserName);
+            }
+
             return result;
         }
 
@@ -71,6 +102,26 @@ namespace sc_admin.Controllers
             var result = await _userManager.AddToRoleAsync(user, roleName);
 
             return result;
+        }
+
+        private async Task AddClaims(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            var claims = new List<Claim> {
+                new Claim(type: JwtClaimTypes.GivenName, value: user.GivenName),
+                new Claim(type: JwtClaimTypes.FamilyName, value: user.FamilyName),
+            };
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            foreach (var claim in claims)
+            {
+                var existingUserClaim = userClaims?.FirstOrDefault(x => x.Type == claim.Type);
+                if (existingUserClaim == null)
+                {
+                    await _userManager.AddClaimAsync(user, claim);
+                }
+
+                await _userManager.ReplaceClaimAsync(user, existingUserClaim, claim);
+            }
         }
     }
 }

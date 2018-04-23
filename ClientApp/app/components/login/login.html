@@ -16,7 +16,10 @@
                 </div>
                 <button class="btn btn-sc" type="submit">Login</button>
 
-                <section class="alert alert-danger" if.bind="hasError">
+                <section class="alert alert-danger" if.bind="error">
+                    <!-- <div repeat.for="error of errors">
+                        <small>${error.description}</small>
+                    </div> -->
                     ${error}
                 </section>
             </form>

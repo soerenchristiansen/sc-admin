@@ -1,6 +1,7 @@
 <template>
     <require from="../navmenu/navmenu.html"></require>
-    <navmenu router.bind="router"></navmenu>
+    <navmenu router.bind="router" isadmin.bind="isAdmin"></navmenu>
+    <loading-indicator loading.bind="router.isNavigating || authService.httpClient.isRequesting || apiService.httpClient.isRequesting"></loading-indicator>
     <div class="content-wrapper">
         <header class="header navbar navbar-expand-lg justify-content-between">
             <ul class="navbar-nav flex-row">
@@ -13,7 +14,7 @@
             <ul class="navbar-nav flex-row">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <span>Søren Christiansen</span>
+                        <span>${user.name}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -23,7 +24,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" click.delegate="signout()">
                                 <i class="fa fa-sign-out mr-1"></i>
                                 <span>Logout</span>
                             </a>

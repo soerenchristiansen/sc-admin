@@ -6,6 +6,7 @@
 
     <p if.bind="!forecasts"><em>Loading...</em></p>
 
+    <input type="text" class="form-control" value.bind="searchTerm & debounce:200">
     <table if.bind="forecasts" class="table">
         <thead>
             <tr>
@@ -16,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="forecast of forecasts">
+            <tr repeat.for="forecast of forecasts | genericFilter:searchTerm">
                 <td>${ forecast.dateFormatted }</td>
                 <td>${ forecast.temperatureC }</td>
                 <td>${ forecast.temperatureF }</td>

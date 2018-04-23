@@ -1,16 +1,13 @@
 import { HttpClient } from 'aurelia-fetch-client';
+import { ApiService } from './../../services/api.service';
 import { inject } from 'aurelia-framework';
 
-@inject(HttpClient)
-export class Fetchdata {
+export class Fetchdata extends ApiService {
     public forecasts: WeatherForecast[];
 
-    constructor(http: HttpClient) {
-        http.fetch('api/SampleData/WeatherForecasts')
-            .then(result => result.json() as Promise<WeatherForecast[]>)
-            .then(data => {
-                this.forecasts = data;
-            });
+    activate() {
+        this.get<WeatherForecast[]>('SampleData/WeatherForecasts')
+            .then(data => this.forecasts = data);
     }
 }
 

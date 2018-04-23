@@ -6,6 +6,9 @@
     overflow: hidden;
     width: 280px;
     height: 100%;
+    background-color: #fff;
+    line-height: 56px;
+    box-shadow: none;
 
     & .navbar-header {
         border-bottom: 1px solid rgba(0, 0, 0, .0625);
@@ -35,9 +38,16 @@
         width: 280px;
 
         & > li {
+            float: unset;
 
-            &.active {
-                background-color: #f8f9fa;
+            & > a {
+                display: flex;
+                align-items: center;
+                padding: 0 1rem;
+
+                & i {
+                    margin-right: 15px;
+                }
             }
         }
     }

@@ -3,15 +3,16 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { User } from '../models/user';
 import { Router } from 'aurelia-router';
 import { HttpClient, json } from 'aurelia-fetch-client';
-import { inject, observable } from 'aurelia-framework';
+import { inject, observable, Aurelia } from 'aurelia-framework';
 import oidcConfig from '../../oidc-config';
 
-@inject(HttpClient, Router, EventAggregator)
+@inject(HttpClient, Router, EventAggregator, Aurelia)
 export class AuthenticationService {
 	public redirectUrl: string = "";
 	private isSignedIn = false;
+	public user: User = new User();
 
-	constructor(private http: HttpClient, private router: Router, private ea: EventAggregator) {
+	constructor(private http: HttpClient, private router: Router, private ea: EventAggregator, private aurelia: Aurelia) {
 	}
 
 	login(userName: string, password: string): Promise<any> {
@@ -40,7 +41,6 @@ export class AuthenticationService {
 					this.storeAccessToken(result);
 					resolve(result);
 					this.publishSigninStatus(true);
-					this.router.navigate("/");
 				})
 				.catch(error => {
 					console.error('Error performing password flow', error);
@@ -133,8 +133,10 @@ export class AuthenticationService {
 			.then(response => response.json())
 			.then(result => {
 				user.userName = result.preferred_username;
-				user.firstName = result.name;
+				user.givenName = result.given_name;
+				user.familyName = result.family_name;
 				user.roles = result.role;
+				this.user = user;
 				return user;
 			})
 			.catch(err => err);
@@ -143,10 +145,10 @@ export class AuthenticationService {
 		return new Promise(resolve => resolve(user));
 	}
 
-	signOut() {
+	async signOut() {
 		this.clearStorage();
-		this.publishSigninStatus(false);
-		this.router.navigate('login');
+		this.router.navigate('/', {refresh: true, trigger: false});
+		await this.aurelia.setRoot('app/components/login/login');
 	}
 
 	clearStorage(): void {
@@ -170,5 +172,10 @@ export class AuthenticationService {
 
 	publishSigninStatus(siginStatus: boolean): void {
 		this.ea.publish(new LoginStatusUpdated(siginStatus));
+	}
+
+	isInRole(role: string): boolean {
+		const roles: string[] = this.user && typeof this.user.roles !== undefined ? this.user.roles : []; 
+		return roles.indexOf(role) !== -1;
 	}
 }

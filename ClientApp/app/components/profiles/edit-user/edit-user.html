@@ -4,11 +4,11 @@
             <div class="name-info">
                 <div class="form-group">
                     <label>First name</label>
-                    <input class="form-control" attach-focus="true" value.bind="user.firstName" />
+                    <input class="form-control" type="text" attach-focus="true" value.bind="user.givenName" />
                 </div>
                 <div class="form-group">
                     <label>Last name</label>
-                    <input class="form-control" value.bind="user.lastName" />
+                    <input class="form-control" type="text" value.bind="user.familyName" />
                 </div>
             </div>
             <div class="form-group">
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label>Role</label>
-                <select class="form-control" value.bind="user.role" change.delegate="changeRole(user.role)">
+                <select class="form-control" value.bind="user.role">
                     <option repeat.for="role of roles" model.bind="role.roleName">
                         ${role.roleName}
                     </option>
@@ -29,19 +29,19 @@
             </div>
             <div class="name-info">
                 <div class="form-group">
-                    <label>Password</label>
+                    <label>${user.id ? 'Old password': 'Password'}</label>
                     <input class="form-control" type="password" value.bind="user.password" />
                 </div>
                 <div class="form-group">
-                    <label>Confirm password</label>
+                    <label>${user.id ? 'New password': 'Confirm password'}</label>
                     <input class="form-control" type="password" value.bind="user.confirmPassword" />
                 </div>
             </div>
         </ux-dialog-body>
 
         <ux-dialog-footer>
-            <button class="btn btn-danger" click.trigger="dialogController.cancel()">Cancel</button>
-            <button class="btn btn-success" click.trigger="editUser()">Save</button>
+            <button class="btn red" click.trigger="dialogController.cancel()">Cancel</button>
+            <button class="btn waves-effect waves-light" click.trigger="editUser()">Save</button>
         </ux-dialog-footer>
 
         <section class="alert alert-danger" if.bind="errors.length > 0">

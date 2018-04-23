@@ -1,9 +1,28 @@
+import { ApiService } from './../../services/api.service';
+import { User } from './../../models/user';
+import { AuthenticationService } from './../../services/authentication.service';
+import { LoginStatusUpdated } from './../../shared/messages';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import { AuthorizeStep } from './../../shared/authorize-step';
-import { Aurelia, PLATFORM } from 'aurelia-framework';
+import { Aurelia, PLATFORM, inject } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
 
+@inject(AuthenticationService, ApiService, EventAggregator)
 export class App {
-    router: Router;
+    private router: Router;
+    private signinStatus: boolean;
+    private user: User;
+    private isAdmin: boolean;
+
+    constructor(private authService: AuthenticationService, private apiSerivce: ApiService, ea: EventAggregator) {
+        ea.subscribe(LoginStatusUpdated, (msg: LoginStatusUpdated) => {
+            this.signinStatus = msg.signinStatus;
+            this.authService.getUser().then(user => {
+                this.user = user;
+                this.isAdmin = this.authService.isInRole('administrator');
+            });
+        });
+    }
 
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'SC Admin';
@@ -31,11 +50,15 @@ export class App {
                 route: 'profiles',
                 name: 'profiles',
                 moduleId: PLATFORM.moduleName('../profiles/profiles'),
-                nav: true,
-                title: 'Profiles'
+                title: 'Profiles',
+                auth: true
             }
         ]);
 
         this.router = router;
+    }
+
+    signout() {
+        this.authService.signOut();
     }
 }

@@ -36,7 +36,10 @@ module.exports = ({ prod } = {}) => {
                 'bootstrap/dist/css/bootstrap.css',
                 'popper.js/dist/umd/popper.js',
                 'jquery/dist/jquery.js',
-                'font-awesome/css/font-awesome.css'
+                'materialize-css/dist/css/materialize.css',
+                'materialize-css/dist/js/materialize.js',
+                'nprogress/nprogress.css',
+                'nprogress/nprogress.js'
             ],
         },
         output: {
@@ -47,7 +50,7 @@ module.exports = ({ prod } = {}) => {
         },
         plugins: [
             extractCSS,
-            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'

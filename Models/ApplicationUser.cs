@@ -6,8 +6,8 @@ namespace sc_admin.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FamilyName { get; set; }
+        public string GivenName { get; set; }
         [NotMapped]
         public IEnumerable<string> Roles { get; set; }
     }
