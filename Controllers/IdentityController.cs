@@ -29,8 +29,12 @@ namespace sc_admin.Controllers
         [HttpGet("[action]")]
         public async Task<IList<ApplicationUser>> GetAllUsers()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
-            return await _userManager.Users.ToListAsync();
+            var users = await _userManager.Users.ToListAsync();
+            foreach (var applicationUser in users)
+            {
+                applicationUser.Roles = await _userManager.GetRolesAsync(applicationUser);
+            }
+            return users;
         }
 
         [HttpGet("[action]")]
@@ -108,8 +112,8 @@ namespace sc_admin.Controllers
         {
             var user = await _userManager.FindByNameAsync(userName);
             var claims = new List<Claim> {
-                new Claim(type: JwtClaimTypes.GivenName, value: user.GivenName),
-                new Claim(type: JwtClaimTypes.FamilyName, value: user.FamilyName),
+                new Claim(JwtClaimTypes.GivenName, user.GivenName),
+                new Claim(JwtClaimTypes.FamilyName, user.FamilyName),
             };
             var userClaims = await _userManager.GetClaimsAsync(user);
             foreach (var claim in claims)
@@ -119,8 +123,10 @@ namespace sc_admin.Controllers
                 {
                     await _userManager.AddClaimAsync(user, claim);
                 }
-
-                await _userManager.ReplaceClaimAsync(user, existingUserClaim, claim);
+                else
+                {
+                    await _userManager.ReplaceClaimAsync(user, existingUserClaim, claim);
+                }
             }
         }
     }

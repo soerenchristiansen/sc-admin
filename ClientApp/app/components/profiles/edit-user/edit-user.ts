@@ -3,6 +3,7 @@ import { ProfilesService } from './../../../services/profiles.service';
 import { User } from './../../../models/user';
 import { DialogController } from 'aurelia-dialog';
 
+
 @inject(DialogController, ProfilesService)
 export class EditUser {
     user: User = new User();
@@ -19,6 +20,9 @@ export class EditUser {
                 this.user = user;
                 this.roles = roles;
             });
+
+
+        
     }
 
     editUser() {

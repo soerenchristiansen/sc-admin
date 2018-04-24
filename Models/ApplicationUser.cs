@@ -9,6 +9,6 @@ namespace sc_admin.Models
         public string FamilyName { get; set; }
         public string GivenName { get; set; }
         [NotMapped]
-        public IEnumerable<string> Roles { get; set; }
+        public IList<string> Roles { get; set; }
     }
 }

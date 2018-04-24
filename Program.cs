@@ -37,6 +37,7 @@ namespace sc_admin
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 // .UseSerilog()
+                .UseEnvironment("Production")
                 .Build();
     }
 }
