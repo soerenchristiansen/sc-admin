@@ -1,6 +1,6 @@
 declare const IS_DEV_BUILD: boolean;
 
-const appHost = IS_DEV_BUILD ? "http://localhost:49412" : "https://sc-admin.herokuapp.com/";
+const appHost = IS_DEV_BUILD ? "http://localhost:49412" : "https://sc-admin.herokuapp.com";
 
 export default {
   client_id: 'SCAdmin',
