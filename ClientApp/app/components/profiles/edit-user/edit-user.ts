@@ -20,9 +20,6 @@ export class EditUser {
                 this.user = user;
                 this.roles = roles;
             });
-
-
-        
     }
 
     editUser() {

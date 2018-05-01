@@ -8,9 +8,7 @@
             <button click.delegate="openUserModal()" class="btn btn-primary">Add user</button>
         </div>
         <div class="col-md-5">
-            <div class="chips chips-autocomplete input-field">
-                <input type="text">
-            </div>
+            <div md-chips="data.bind: chips; autocomplete-data.bind: autocompleteData;"></div>
         </div>
     </div>
     <div class="row">

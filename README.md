@@ -13,5 +13,8 @@ e.g. `dotnet ef migrations add InitialCreate`
 #### Remove the last migration
 e.g. `dotnet ef migrations remove`
 
+#### Migrations sql script for production and stage
+`dotnet ef migrations script --output migrationscript.sql`
+
 #### To save git credentials
 `git config credential.helper store`

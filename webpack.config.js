@@ -40,7 +40,7 @@ module.exports = (env) => {
                 asset: "[path].gz[query]",
                 algorithm: "gzip",
                 test: /\.js$|\.css$|\.html$/,
-                // threshold: 10240,
+                threshold: 10240,
                 minRatio: 0
               }),
 			new OpenBrowerPlugin({ url: isDevBuild ? 'http://localhost:49412' : 'sc-admin.herokuapp.com' })

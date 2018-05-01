@@ -44,7 +44,7 @@ namespace sc_admin
                 options.Password.RequireLowercase = false;
                 // Lockout settings.
                 options.Lockout.AllowedForNewUsers = true;
-                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.MaxFailedAccessAttempts = 6;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(1);
             });
 
