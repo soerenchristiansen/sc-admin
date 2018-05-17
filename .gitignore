@@ -28,10 +28,10 @@ Obj/
 
 # Visual Studio 2015 cache/options directory
 .vs/
-/wwwroot/dist/
-/ClientApp/dist/
+sc-admin/wwwroot/dist/
+sc-admin/ClientApp/dist/
 
-/yarn.lock
+sc-admin/yarn.lock
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -185,7 +185,7 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
-/node_modules
+sc-admin/node_modules
 
 # RIA/Silverlight projects
 Generated_Code/

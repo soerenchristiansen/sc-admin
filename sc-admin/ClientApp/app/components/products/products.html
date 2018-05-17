@@ -1,0 +1,42 @@
+<template>
+    <div class="row justify-content-between align-items-center">
+        <h5 style="flex: 1 0 auto;">Products</h5>
+        <button class="btn btn-primary">Add product</button>
+    </div>
+    <div class="row justify-content-between align-items-end">
+        <div class="col-md-11 px-0">
+            <input class="col-md-4" type="text" placeholder="search..." value.bind="searchTerm & debounce:200">
+        </div>
+        <select class="col-md-1" style="display: block;" value.bind="pageSize">
+            <option repeat.for="item of pageSizes" model.bind="item">${item}</option>
+        </select>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Thumbnail</th>
+                    <th>Marketing ready</th>
+                    <th>Color</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th class="text-right">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="product of products | genericFilter:searchTerm">
+                    <td><input type="checkbox" value.bind="product.selected"></td>
+                    <td>${product.name}</td>
+                    <td>${product.thumbnail}</td>
+                    <td>${product.marketingReady}</td>
+                    <td>${product.color}</td>
+                    <td>${product.sku}</td>
+                    <td>${product.category}</td>
+                    <td class="text-right">${product.price}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
