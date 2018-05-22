@@ -6,6 +6,7 @@ export class Login {
     userName: string = "";
     password: string = "";
     error: string = "";
+    loading: boolean = true;
 
     constructor(private authenticationService: AuthenticationService, private aurelia: Aurelia) {
 

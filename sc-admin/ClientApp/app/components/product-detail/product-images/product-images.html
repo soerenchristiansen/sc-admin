@@ -1,0 +1,10 @@
+<template bindable="images">
+    <input type="file" multiple files.bind="images" accept="image/*">
+    <div class="row">
+        <div class="col-md-2 h-10 mb-3" repeat.for="file of images | filesToArray">
+            <div class="border d-flex align-items-center h-100 w-100">
+                <img class="w-100" src.bind="file | blobToUrl">
+            </div>
+        </div>
+    </div>
+</template>

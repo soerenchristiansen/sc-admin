@@ -1,3 +1,16 @@
 .table td, .table th {
     padding: .5rem;
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+.breadcrumb {
+    padding: .3rem .5rem;
+    font-size: 16px;
+
+    > li > a {
+        color: #039be5 !important;
+    }
+}

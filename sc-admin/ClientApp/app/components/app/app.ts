@@ -46,6 +46,13 @@ export class App {
                 auth: true
             },
             {
+                route: 'product/:id',
+                name: 'product',
+                moduleId: PLATFORM.moduleName('../product-detail/product-detail'),
+                title: 'Product detail',
+                auth: true
+            },
+            {
                 route: 'profiles',
                 name: 'profiles',
                 moduleId: PLATFORM.moduleName('../profiles/profiles'),

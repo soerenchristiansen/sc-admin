@@ -14,12 +14,21 @@
                 <div class="d-flex align-items-center justify-content-end">
                     <a href="#" class="forgot-password-link">Forgot Password</a>
                 </div>
-                <button class="btn btn-sc" type="submit">Login</button>
-
+                <button class="btn btn-sc" type="submit">Login
+                    <!-- <div class="preloader-wrapper small active">
+                        <div class="spinner-layer spinner-blue-only">
+                          <div class="circle-clipper left">
+                            <div class="circle"></div>
+                          </div><div class="gap-patch">
+                            <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                          </div>
+                        </div>
+                      </div> -->
+                </button>
+                
                 <section class="alert alert-danger" if.bind="error">
-                    <!-- <div repeat.for="error of errors">
-                        <small>${error.description}</small>
-                    </div> -->
                     ${error}
                 </section>
             </form>

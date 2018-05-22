@@ -1,0 +1,24 @@
+<template>
+    <require from="./product-images/product-images.html"></require>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="products">Products</a>
+        </li>
+        <li class="breadcrumb-item active">${productId}</li>
+    </ol>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general"
+            aria-selected="true">General</a>
+        <a class="nav-item nav-link" id="nav-categories-tab" data-toggle="tab" href="#nav-categories" role="tab" aria-controls="nav-categories"
+            aria-selected="false">Categories</a>
+        <a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images" role="tab" aria-controls="nav-images"
+            aria-selected="false">Images</a>
+    </div>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">bente</div>
+        <div class="tab-pane fade" id="nav-categories" role="tabpanel" aria-labelledby="nav-categories-tab">lars</div>
+        <div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
+            <product-images images.bind="images"></product-images>
+        </div>
+    </div>
+</template>

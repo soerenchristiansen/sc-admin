@@ -24,6 +24,10 @@ export class ApiService {
     protected post<T>(path: string, body: any = {}): Promise<T> {
         return this.http.fetch(path, { method: 'post', body: json(body) }).then(response => response.json() as Promise<T>);
     }
+
+    protected postFile<T>(path: string, formData: FormData): Promise<T> {
+        return this.http.fetch(path, { method: 'post', body: formData }).then(response => response.json() as Promise<T>);
+    }
     
     protected put<T>(path: string, body: any = {}): Promise<T> {
         return this.http.fetch(path, { method: 'put', body: json(body) }).then(response => response.json() as Promise<T>);

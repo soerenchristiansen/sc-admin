@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr repeat.for="product of products | genericFilter:searchTerm">
+                <tr repeat.for="product of products | genericFilter:searchTerm" click.delegate="openProduct(product.id)" class="clickable">
                     <td><input type="checkbox" value.bind="product.selected"></td>
                     <td>${product.name}</td>
                     <td>${product.thumbnail}</td>

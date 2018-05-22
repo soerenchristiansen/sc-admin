@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using sc_admin.Context;
 using sc_admin.Models;
+using sc_admin.Services;
 
 namespace sc_admin
 {
@@ -66,6 +67,8 @@ namespace sc_admin
 
                     options.ApiName = "WebAPI";
                 });
+
+            services.AddTransient<IProductService, ProductService>();
 
             services.AddMvc();
         }

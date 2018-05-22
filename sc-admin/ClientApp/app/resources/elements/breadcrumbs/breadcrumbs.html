@@ -1,0 +1,8 @@
+<template>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" 
+        repeat.for="instruction of router.currentInstruction.getAllInstructions()" 
+        click.delegate="navigate(instruction)"
+            aria-current="page">${instruction.config.title}</li>
+    </ol>
+</template>
